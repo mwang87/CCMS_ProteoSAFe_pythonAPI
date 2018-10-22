@@ -15,7 +15,6 @@ setup(name='ccmsproteosafepythonapi',
           'xmltodict',
           'numpy',
           'matplotlib',
-          'requests',
-          'csv'
+          'requests'
       ],
       zip_safe=False)

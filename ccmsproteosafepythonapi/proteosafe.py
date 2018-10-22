@@ -6,6 +6,7 @@ import time
 import json
 import shutil
 import xmltodict
+from collections import defaultdict
 
 
 def parse_xml_file(input_filename):
