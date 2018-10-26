@@ -11,12 +11,11 @@ def main():
     parser = argparse.ArgumentParser(description='Invoking new workflow with parameters of given workflow')
     parser.add_argument('workflowparamters', help='workflowparamters')
     parser.add_argument('credentials', help='credentials.json')
+    parser.add_argument('outputhtml', default='output.html', help='output html with a url')
     parser.add_argument('--serverurl', default='proteomics2.ucsd.edu', help='Server URL, default is proteomics2.ucsd.edu, other options are massive.ucsd.edu and gnps.ucsd.edu')
     parser.add_argument('--parametermapping', action='append', help='mapping of current workflow parameters to new parameters in the format: <old parameter>:<new parameter>')
     parser.add_argument('--newparameters', action='append', help='parameter key: <param name>:<parameter value>')
     args = parser.parse_args()
-
-    print(args)
 
     credentials = json.loads(open(args.credentials).read())
 
@@ -42,6 +41,13 @@ def main():
     if task_id == None:
         exit(1)
     proteosafe.wait_for_workflow_finish(args.serverurl, task_id)
+
+    """Writing HTML output"""
+    output_html_file = open(args.outputhtml, "w")
+    output_html_file.write("<script>\n")
+    output_html_file.write('window.location.replace("https://%s/ProteoSAFe/status.jsp?task=%s")\n' % (args.serverurl, task_id)
+    output_html_file.write("</script>\n")
+    output_html_file.close()
 
 
 if __name__ == "__main__":
