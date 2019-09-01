@@ -21,7 +21,7 @@ def parse_xml_file(input_filename):
     return key_value_pairs
 
 def get_mangled_file_mapping(parsed_paramxml):
-    all_mappings = params["upload_file_mapping"]
+    all_mappings = parsed_paramxml["upload_file_mapping"]
     mangled_mapping = {}
     for mapping in all_mappings:
         splits = mapping.split("|")
